@@ -1,10 +1,9 @@
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-
 const express = require("express");
 const routes = require("./routes");
 require('dotenv').config({ path: __dirname+'/.env' });
 const app = express();
+const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
