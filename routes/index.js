@@ -6,6 +6,6 @@ const truck = require("./truck");
 const router = express.Router();
 
 router.use('/auth', user);
-router.use('/truck', truck);
+router.use('/api/truck', truck);
 
 module.exports = router;

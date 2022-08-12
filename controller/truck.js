@@ -102,3 +102,23 @@ exports.getAllTruck = async (req, res) => {
         });
     }
 }
+
+exports.getTruck = async (req, res) => {
+    try {
+        const truck = await TRUCK.findOne({where: {id: req.params.id}});
+        res.status(200).send({
+            success: true,
+            message: 'Succes to get truck',
+            code: 200,
+            data: truck,
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Fail to get truck',
+            code: 500,
+            error,
+        });
+    }
+}
