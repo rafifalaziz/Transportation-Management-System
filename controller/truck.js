@@ -62,3 +62,23 @@ exports.addTruck = async (req, res) => {
         });
     }
 }
+
+exports.editTruck = async (req, res) => {
+    try {
+        const truck = await TRUCK.update({...req.body}, {where: {id: req.params.id}});
+        res.status(200).send({
+            success: true,
+            message: 'Berhasil mengedit truck',
+            code: 200,
+            truck,
+        }); 
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Gagal mengedit truck',
+            code: 500,
+            error,
+        });
+    }
+}
