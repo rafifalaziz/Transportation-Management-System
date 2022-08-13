@@ -1,3 +1,4 @@
+const req = require("express/lib/request");
 const { authenticate } = require("../helper/auth-helper");
 const models = require("../models");
 
@@ -56,6 +57,53 @@ const addShipment = async (req, res) => {
     })
 }
 
+const updateShipment = async (req, res) => {
+    const token = req.cookies.token
+
+    if (!token) {
+        return res.status(401).send({
+            "status": "Gagal",
+            "code": 401,
+            "message": "Unauthorized"
+        })
+    }
+
+    const {truck_id, driver_id} = req.body
+
+    if (!truck_id || !driver_id) {
+        return res.status(400).send({
+            success: false,
+            message: 'Bad Request',
+            code: 400
+        });
+    }
+
+    const user = await authenticate(token)
+
+    if (user.role != "Shipper") {
+        return res.status(401).send({
+            success: false,
+            message: 'Unauthorized',
+            code: 401
+        });
+    }
+
+    const shipment = await SHIPMENT.update({ 
+        truck_id: truck_id,
+        driver_id: driver_id
+        }, {
+        where: {
+          id: req.params.id
+        }
+      });  
+
+      return res.status(200).send({
+          "token": token,
+          "message": "Success to update Shipment",
+      })
+    }
+
 module.exports = {
-    addShipment
+    addShipment,
+    updateShipment
 }
