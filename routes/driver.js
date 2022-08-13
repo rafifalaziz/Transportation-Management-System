@@ -4,7 +4,7 @@ const {auth} = require("../middleware");
 
 const router = express.Router();
 
-router.post('/add', auth.shipperRole, addDriver);
-router.get('/', auth.shipperRole, getDrivers)
+router.post('/add', auth.transporterRole, addDriver);
+router.get('/', auth.transporterRole, getDrivers)
 
 module.exports = router;
