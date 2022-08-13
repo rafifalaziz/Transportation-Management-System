@@ -28,7 +28,21 @@ const getDrivers = async (req, res) => {
 
     const user = await authenticate(token)
 
-    return res.send(user)
+    if (user.role != "Transporter") {
+        return res.status(401).send({
+            success: false,
+            message: 'Unauthorized',
+            code: 401
+        });
+    }
+
+    const drivers = await DRIVER.findAll()
+
+    return res.status(200).send({
+        "token": token,
+        "message": "Success Get All Drivers Data",
+        "data": drivers
+    })
 }
 
 
