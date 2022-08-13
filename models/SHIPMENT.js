@@ -7,10 +7,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    production_year: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     origin: {
       type: DataTypes.STRING(100),
       allowNull: false

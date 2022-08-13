@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-08-13 04:30:59.799
+-- Last modification date: 2022-08-13 07:53:19.543
 
 -- tables
 -- Table: driver
@@ -22,13 +22,12 @@ CREATE TABLE plate_type (
 -- Table: shipment
 CREATE TABLE shipment (
     id int NOT NULL AUTO_INCREMENT,
-    production_year int NOT NULL,
     origin varchar(100) NOT NULL,
     destination varchar(100) NOT NULL,
     loading_date timestamp NOT NULL,
-    driver_id int NOT NULL,
-    truck_id int NOT NULL,
-    status_id int NOT NULL,
+    driver_id int NULL,
+    truck_id int NULL,
+    status_id int NULL,
     CONSTRAINT shipment_pk PRIMARY KEY (id)
 );
 
@@ -47,6 +46,8 @@ CREATE TABLE truck (
     license varchar(20) NOT NULL,
     truck_type_id int NOT NULL,
     plate_type_id int NOT NULL,
+    status_id int NOT NULL,
+    production_year int NOT NULL,
     CONSTRAINT truck_pk PRIMARY KEY (id)
 );
 
@@ -86,6 +87,10 @@ ALTER TABLE shipment ADD CONSTRAINT shipment_truck FOREIGN KEY shipment_truck (t
 -- Reference: truck_plate_type (table: truck)
 ALTER TABLE truck ADD CONSTRAINT truck_plate_type FOREIGN KEY truck_plate_type (plate_type_id)
     REFERENCES plate_type (id);
+
+-- Reference: truck_status (table: truck)
+ALTER TABLE truck ADD CONSTRAINT truck_status FOREIGN KEY truck_status (status_id)
+    REFERENCES status (id);
 
 -- Reference: truck_truck_type (table: truck)
 ALTER TABLE truck ADD CONSTRAINT truck_truck_type FOREIGN KEY truck_truck_type (truck_type_id)
