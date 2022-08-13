@@ -1,3 +1,1 @@
-const auth = require("./auth");
-
-module.exports = {auth};
+create = USER.create({bodyrequest})

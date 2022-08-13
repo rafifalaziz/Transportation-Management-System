@@ -24,8 +24,6 @@ function initModels(sequelize) {
   STATUS.hasMany(DRIVER, { as: "drivers", foreignKey: "status_id"});
   SHIPMENT.belongsTo(STATUS, { as: "status", foreignKey: "status_id"});
   STATUS.hasMany(SHIPMENT, { as: "shipments", foreignKey: "status_id"});
-  TRUCK.belongsTo(STATUS, { as: "status", foreignKey: "status_id"});
-  STATUS.hasMany(TRUCK, { as: "trucks", foreignKey: "status_id"});
   SHIPMENT.belongsTo(TRUCK, { as: "truck", foreignKey: "truck_id"});
   TRUCK.hasMany(SHIPMENT, { as: "shipments", foreignKey: "truck_id"});
   TRUCK.belongsTo(TRUCK_TYPE, { as: "truck_type", foreignKey: "truck_type_id"});
