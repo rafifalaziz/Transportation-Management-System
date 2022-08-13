@@ -10,7 +10,8 @@ router.post('/addPlate', auth.transporterRole, truck.addPlate);
 router.post('/addTruckType', auth.transporterRole, truck.addTruckType);
 router.put('/edit/:id', auth.transporterRole, truck.editTruck);
 router.get('/all', auth.transporterRole, truck.getAllTruck);
-router.get('/:id', auth.transporterRole, truck.getTruck);
+router.get('/get-one/:id', auth.transporterRole, truck.getTruck);
+router.get('/search', auth.transporterRole, truck.searchTruckByName)
 
 
 module.exports = router;
