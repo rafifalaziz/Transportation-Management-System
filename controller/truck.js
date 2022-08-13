@@ -82,3 +82,43 @@ exports.editTruck = async (req, res) => {
         });
     }
 }
+
+exports.getAllTruck = async (req, res) => {
+    try {
+        const trucks = await TRUCK.findAll();
+        res.status(200).send({
+            success: true,
+            message: 'Succes to get all truck',
+            code: 200,
+            data: trucks,
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Fail to get all truck',
+            code: 500,
+            error,
+        });
+    }
+}
+
+exports.getTruck = async (req, res) => {
+    try {
+        const truck = await TRUCK.findOne({where: {id: req.params.id}});
+        res.status(200).send({
+            success: true,
+            message: 'Succes to get truck',
+            code: 200,
+            data: truck,
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Fail to get truck',
+            code: 500,
+            error,
+        });
+    }
+}
