@@ -1,6 +1,6 @@
 const express = require("express");
 const {addDriver, getDrivers, editDriver} = require("../controller/driver")
-
+const {auth} = require("../middleware");
 const router = express.Router();
 
 router.post('/add', auth.transporterRole, addDriver);
