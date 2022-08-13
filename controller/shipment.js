@@ -178,6 +178,6 @@ module.exports = {
     addShipment,
     updateShipment,
     getAllShipmentStatus,
-    updateShipmentstatus
-    getAllShipment,
+    updateShipmentstatus,
+    getAllShipment
 }
