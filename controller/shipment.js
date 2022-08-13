@@ -1,4 +1,3 @@
-const req = require("express/lib/request");
 const { authenticate } = require("../helper/auth-helper");
 const models = require("../models");
 
@@ -103,7 +102,58 @@ const updateShipment = async (req, res) => {
       })
     }
 
-    const getAllShipment = async (req, res) => {
+    const getAllShipmentStatus = async (req, res) => {
+        const status_all = STATUS.findAll()
+
+        return res.send(status_all)
+    }
+    
+    const updateShipmentstatus = async (req, res) => {
+        const token = req.cookies.token
+    
+        if (!token) {
+            return res.status(401).send({
+                "status": "Gagal",
+                "code": 401,
+                "message": "Unauthorized"
+            })
+        }
+    
+        const {status_id} = req.body
+    
+        if (!status_id) {
+            return res.status(400).send({
+                success: false,
+                message: 'Bad Request',
+                code: 400
+            });
+        }
+    
+        const user = await authenticate(token)
+    
+        if (user.role != "Shipper") {
+            return res.status(401).send({
+                success: false,
+                message: 'Unauthorized',
+                code: 401
+            });
+        }
+    
+        const shipment = await SHIPMENT.update({ 
+            status_id: status_id,
+            }, {
+            where: {
+              id: req.params.id
+            }
+          });  
+    
+          return res.status(200).send({
+              "token": token,
+              "message": "Success to update Shipment",
+          })
+        }
+
+const getAllShipment = async (req, res) => {
         try {
             const shipments = await SHIPMENT.findAll();
             res.status(200).send({
@@ -127,5 +177,7 @@ const updateShipment = async (req, res) => {
 module.exports = {
     addShipment,
     updateShipment,
+    getAllShipmentStatus,
+    updateShipmentstatus
     getAllShipment,
 }
