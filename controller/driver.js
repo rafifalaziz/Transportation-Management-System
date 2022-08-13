@@ -26,6 +26,13 @@ const addDriver = async (req, res) => {
 const getDrivers = async (req, res) => {
     const token = req.cookies.token
 
+    if (!token){
+        return res.status(401).send({
+            success: false,
+            message: 'Unauthorized',
+            code: 401
+        });
+    }
     const user = await authenticate(token)
 
     if (user.role != "Transporter") {
