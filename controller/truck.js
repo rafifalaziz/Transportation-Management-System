@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const models = require("../models");
 
 const {TRUCK, PLATE_TYPE, TRUCK_TYPE} = models.init;
@@ -106,7 +107,7 @@ exports.getAllTruck = async (req, res) => {
 exports.getTruck = async (req, res) => {
     try {
         const truck = await TRUCK.findOne({where: {id: req.params.id}});
-        res.status(200).send({
+        return res.status(200).send({
             success: true,
             message: 'Succes to get truck',
             code: 200,
@@ -114,11 +115,22 @@ exports.getTruck = async (req, res) => {
         })
     } catch (error) {
         console.log(error);
-        res.status(500).send({
+        return res.status(500).send({
             success: false,
             message: 'Fail to get truck',
             code: 500,
             error,
         });
     }
+}
+
+exports.searchTruckByName = async (req, res) => {
+    const {name} = req.query
+    // console.log("dassd")
+    const truck = await TRUCK.findAll({where: {
+        license: {
+            [Op.like]: `%${name}%`
+        }
+    }});
+    return truck
 }
