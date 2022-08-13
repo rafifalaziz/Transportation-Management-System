@@ -6,6 +6,7 @@ const {addDriver, getDrivers, editDriver, searchDriverByName} = require("../cont
 
 
 router.get('/search', auth.transporterRole, searchDriverByName)
+
 router.post('/add', auth.transporterRole, addDriver);
 router.put('/edit/:id', auth.transporterRole, editDriver);
 router.get('/', auth.transporterRole, getDrivers)
