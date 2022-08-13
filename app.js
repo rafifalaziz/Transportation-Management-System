@@ -1,15 +1,9 @@
-<<<<<<< Updated upstream
-import express from "express";
-import routes from "./routes/index.js";
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-
-=======
 const express = require("express");
 const routes = require("./routes");
 require('dotenv').config({ path: __dirname+'/.env' });
->>>>>>> Stashed changes
 const app = express();
+const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
