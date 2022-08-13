@@ -1,5 +1,5 @@
 const models = require("../models");
-
+const { Op } = require("sequelize");
 const {DRIVER} = models.init;
 const {authenticate} = require("../helper/auth-helper")
 
@@ -26,6 +26,13 @@ const addDriver = async (req, res) => {
 const getDrivers = async (req, res) => {
     const token = req.cookies.token
 
+    if (!token){
+        return res.status(401).send({
+            success: false,
+            message: 'Unauthorized',
+            code: 401
+        });
+    }
     const user = await authenticate(token)
 
     if (user.role != "Transporter") {
@@ -45,7 +52,43 @@ const getDrivers = async (req, res) => {
     })
 }
 
+const searchDriverByName = async (req, res) => {
+    const {name} = req.query
+
+    const drivers = await DRIVER.findAll({
+        where: {
+            name : {
+                [Op.like]: `%${name}%`
+            }
+        }
+    })
+
+    return drivers
+}
+
+
+const editDriver = async (req, res) => {
+  try {
+      const driver = await DRIVER.update({...req.body}, {where: {id: req.params.id}});
+      res.status(200).send({
+          success: true,
+          message: 'Berhasil mengedit driver',
+          code: 200,
+          driver,
+      }); 
+  } catch (error) {
+      console.log(error);
+      res.status(500).send({
+          success: false,
+          message: 'Gagal mengedit deriver',
+          code: 500,
+          error,
+      });
+  }
+}
 module.exports = {
     addDriver,
-    getDrivers
+    getDrivers,
+    editDriver,
+    searchDriverByName
 }

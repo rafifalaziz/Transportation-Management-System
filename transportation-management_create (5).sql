@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-08-13 07:05:18.271
+-- Last modification date: 2022-08-13 07:53:19.543
 
 -- tables
 -- Table: driver
@@ -22,10 +22,9 @@ CREATE TABLE plate_type (
 -- Table: shipment
 CREATE TABLE shipment (
     id int NOT NULL AUTO_INCREMENT,
-    production_year int NOT NULL,
     origin varchar(100) NOT NULL,
     destination varchar(100) NOT NULL,
-    loading_date timestamp NULL,
+    loading_date timestamp NOT NULL,
     driver_id int NULL,
     truck_id int NULL,
     status_id int NULL,
@@ -48,6 +47,7 @@ CREATE TABLE truck (
     truck_type_id int NOT NULL,
     plate_type_id int NOT NULL,
     status_id int NOT NULL,
+    production_year int NOT NULL,
     CONSTRAINT truck_pk PRIMARY KEY (id)
 );
 
