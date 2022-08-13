@@ -1,4 +1,3 @@
-const req = require("express/lib/request");
 const { authenticate } = require("../helper/auth-helper");
 const models = require("../models");
 
@@ -103,7 +102,14 @@ const updateShipment = async (req, res) => {
       })
     }
 
+    const getAllShipmentStatus = async (req, res) => {
+        const status_all = STATUS.findAll()
+
+        return res.send(status_all)
+    }
+
 module.exports = {
     addShipment,
-    updateShipment
+    updateShipment,
+    getAllShipmentStatus
 }

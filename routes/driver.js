@@ -1,12 +1,11 @@
 const express = require("express");
+const {auth} = require("../middleware");
 
 const router = express.Router();
-
-router.post('/add', addDriver);
-router.get('/', getDrivers)
-router.get('/search', searchDriverByName)
 const {addDriver, getDrivers, editDriver, searchDriverByName} = require("../controller/driver")
 
+
+router.get('/search', auth.transporterRole, searchDriverByName)
 router.post('/add', auth.transporterRole, addDriver);
 router.put('/edit/:id', auth.transporterRole, editDriver);
 router.get('/', auth.transporterRole, getDrivers)
