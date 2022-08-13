@@ -66,8 +66,29 @@ const searchDriverByName = async (req, res) => {
     return drivers
 }
 
+
+const editDriver = async (req, res) => {
+  try {
+      const driver = await DRIVER.update({...req.body}, {where: {id: req.params.id}});
+      res.status(200).send({
+          success: true,
+          message: 'Berhasil mengedit driver',
+          code: 200,
+          driver,
+      }); 
+  } catch (error) {
+      console.log(error);
+      res.status(500).send({
+          success: false,
+          message: 'Gagal mengedit deriver',
+          code: 500,
+          error,
+      });
+  }
+}
 module.exports = {
     addDriver,
     getDrivers,
+    editDriver,
     searchDriverByName
 }
