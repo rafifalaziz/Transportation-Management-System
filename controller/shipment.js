@@ -153,9 +153,31 @@ const updateShipment = async (req, res) => {
           })
         }
 
+const getAllShipment = async (req, res) => {
+        try {
+            const shipments = await SHIPMENT.findAll();
+            res.status(200).send({
+                success: true,
+                message: 'Succes to get all shipment',
+                code: 200,
+                data: shipments,
+            })
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({
+                success: false,
+                message: 'Fail to get all shipment',
+                code: 500,
+                error,
+            });
+        }
+    }
+    
+
 module.exports = {
     addShipment,
     updateShipment,
     getAllShipmentStatus,
     updateShipmentstatus
+    getAllShipment,
 }

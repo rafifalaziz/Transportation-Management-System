@@ -7,7 +7,7 @@ const login = async (req, res) => {
     const {email, password} = req.body
 
     if (!email || !password){
-        res.status(400).send({
+        return res.status(400).send({
             success: false,
             message: 'Bad Request',
             code: 400,
@@ -21,7 +21,7 @@ const login = async (req, res) => {
     })
 
     if (user.length == 0){
-        res.status(401).send({
+        return res.status(401).send({
             success: false,
             message: 'Unauthorized',
             code: 401,
@@ -34,7 +34,7 @@ const login = async (req, res) => {
         maxAge: jwtExpiredSeconds * 1000
     })
 
-    res.status(200).send({
+    return res.status(200).send({
         "token" : token
     })
 }
