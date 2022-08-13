@@ -17,7 +17,7 @@ const generateToken = (email) => {
     return token
 }
 
-const authenticate = (req, res) => {
+const authenticate = async (token) => {
     const token = req.cookies.token
 
     if (!token){
@@ -48,9 +48,13 @@ const authenticate = (req, res) => {
             })
     }
 
-    res.send({
-        "username": username
+    const user = await USER.findAll({
+        where: {
+            email: payload.username
+        }
     })
+
+    return user[0]
 }
 
 module.exports = {
