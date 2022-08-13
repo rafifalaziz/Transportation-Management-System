@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2022-08-13 07:53:09.341
+-- Last modification date: 2022-08-13 07:53:19.543
 
 -- tables
 -- Table: driver
@@ -22,7 +22,6 @@ CREATE TABLE plate_type (
 -- Table: shipment
 CREATE TABLE shipment (
     id int NOT NULL AUTO_INCREMENT,
-    production_year int NOT NULL,
     origin varchar(100) NOT NULL,
     destination varchar(100) NOT NULL,
     loading_date timestamp NOT NULL,
