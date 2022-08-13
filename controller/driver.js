@@ -1,15 +1,16 @@
 const models = require("../models");
 
 const {DRIVER} = models.init;
+const {authenticate} = require("../helper/auth-helper")
 
-exports.addPlate = async (req, res) => {
+const addDriver = async (req, res) => {
     try {
-        const plate = await DRIVER.create({...req.body});
+        const driver = await DRIVER.create({...req.body});
         res.status(200).send({
             success: true,
             message: 'Berhasil membuat driver',
             code: 200,
-            plate,
+            driver,
         }); 
     } catch (error) {
         console.log(error);
@@ -20,4 +21,17 @@ exports.addPlate = async (req, res) => {
             error,
         });
     }
+}
+
+const getDrivers = async (req, res) => {
+    const token = req.cookies.token
+
+    const user = await authenticate(token)
+
+    return res.send(user)
+}
+
+module.exports = {
+    addDriver,
+    getDrivers
 }
