@@ -26,6 +26,18 @@ module.exports = function(sequelize, DataTypes) {
         model: 'plate_type',
         key: 'id'
       }
+    },
+    status_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'status',
+        key: 'id'
+      }
+    },
+    production_year: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,
@@ -45,6 +57,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "plate_type_id" },
+        ]
+      },
+      {
+        name: "truck_status",
+        using: "BTREE",
+        fields: [
+          { name: "status_id" },
         ]
       },
       {

@@ -1,1 +1,3 @@
-create = USER.create({bodyrequest})
+const auth = require("./auth");
+
+module.exports = {auth};

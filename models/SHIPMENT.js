@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     driver_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'driver',
         key: 'id'
@@ -33,7 +33,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     truck_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'truck',
         key: 'id'
@@ -41,7 +41,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     status_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'status',
         key: 'id'
