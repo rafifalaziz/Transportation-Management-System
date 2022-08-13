@@ -1,8 +1,8 @@
 const express = require("express");
 const user = require("./user");
 const truck = require("./truck");
-const driver = require("./driver")
-const shipment = require("./shipment")
+const driver = require("./driver");
+const shipment = require("./shipment");
 
 const router = express.Router();
 
