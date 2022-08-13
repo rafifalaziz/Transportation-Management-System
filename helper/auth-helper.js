@@ -1,5 +1,7 @@
 const { JsonWebTokenError } = require("jsonwebtoken")
 const jsonWebToken = require("jsonwebtoken")
+const models = require("../models");
+const {USER} = models.init;
 
 const jwtExpiredSeconds = 300
 const access_secret_token = "MY_SECRET_TOKEN"
@@ -19,11 +21,11 @@ const generateToken = (email) => {
 
 const authenticate = async (token) => {
     if (!token){
-        return res.status(401).send({
+        return {
             success: false,
             message: 'Unauthorized',
             code: 401,
-            })
+            }
     }
 
     var payload
@@ -32,18 +34,18 @@ const authenticate = async (token) => {
         payload = jsonWebToken.verify(token, access_secret_token)
     } catch (error) {
         if (error instanceof JsonWebTokenError){
-            return res.status(401).send({
+            return {
             success: false,
             message: 'Unauthorized',
             code: 401,
-            })
+            }
         }
 
-        return res.status(400).send({
+        return {
             success: false,
             message: 'Bad Request',
             code: 400,
-            })
+            }
     }
 
     const user = await USER.findAll({
