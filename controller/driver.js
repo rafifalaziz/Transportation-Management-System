@@ -1,5 +1,5 @@
 const models = require("../models");
-
+const { Op } = require("sequelize");
 const {DRIVER} = models.init;
 const {authenticate} = require("../helper/auth-helper")
 
@@ -52,6 +52,20 @@ const getDrivers = async (req, res) => {
     })
 }
 
+const searchDriverByName = async (req, res) => {
+    const {name} = req.query
+
+    const drivers = await DRIVER.findAll({
+        where: {
+            name : {
+                [Op.like]: `%${name}%`
+            }
+        }
+    })
+
+    return drivers
+}
+
 
 const editDriver = async (req, res) => {
   try {
@@ -75,5 +89,6 @@ const editDriver = async (req, res) => {
 module.exports = {
     addDriver,
     getDrivers,
-    editDriver
+    editDriver,
+    searchDriverByName
 }
